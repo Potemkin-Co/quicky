@@ -1,9 +1,10 @@
 #!/bin/bash
 #Script to install Docker on Ubuntu as per https://docs.docker.com/engine/install/ubuntu/
 
-set -e
+sudo apt-get remove docker docker-engine docker.io containerd runc #this can fail
 
-sudo apt-get remove docker docker-engine docker.io containerd runc
+set -e #and the rest shall not
+
 sudo apt-get update
 sudo apt-get --assume-yes install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 
