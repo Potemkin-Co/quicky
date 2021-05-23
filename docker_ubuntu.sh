@@ -1,5 +1,6 @@
 #!/bin/bash
 #Script to install Docker on Ubuntu as per https://docs.docker.com/engine/install/ubuntu/
+#One-liner: wget -O - https://raw.githubusercontent.com/Potemkin-Co/quicky/main/docker_ubuntu.sh | bash
 
 sudo apt-get remove docker docker-engine docker.io containerd runc #this can fail
 
