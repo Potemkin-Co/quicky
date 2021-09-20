@@ -12,7 +12,7 @@ sudo apt-get update
 sudo apt-get install -y kubectl
 
 
-# Terraform install on Ubuntu - currently failing, https://discuss.hashicorp.com/c/terraform-core/27
+# Terraform install on Ubuntu - currently failing, https://discuss.hashicorp.com/t/apt-install-terraform-fails-as-per-docs/29690
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
