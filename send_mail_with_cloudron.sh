@@ -14,4 +14,4 @@ if [ $# -lt 3 ];
    exit 0 
 fi 
 
-swaks -s `docker inspect --format '{{ .NetworkSettings.Networks.cloudron.IPAddress }}' mail` -p 2525 --au no-reply@$DOMAIN --ap `docker inspect --format '{{ .Config.Env }}' mail | tr ' ' '\n' | grep CLOUDRON_RELAY_TOKEN | sed 's/^.*=//'` -f no-reply@$DOMAIN -t $SEND_TO --h-Subject $SEND_SUBJECT --body $SEND_BODY
+swaks -s `docker inspect --format '{{ .NetworkSettings.Networks.cloudron.IPAddress }}' mail` -p 2525 --au no-reply@$DOMAIN --ap `docker inspect --format '{{ .Config.Env }}' mail | tr ' ' '\n' | grep CLOUDRON_RELAY_TOKEN | sed 's/^.*=//'` -f no-reply@$DOMAIN -t $SEND_TO --h-Subject "$SEND_SUBJECT" --body "$SEND_BODY"
