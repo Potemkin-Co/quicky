@@ -2,7 +2,7 @@
 set -e
 set -x
 
-DOMAIN=`docker inspect --format '{{ .Config.Env }}' turn | awk '{print $2}' | awk -F '=' '{print $2}' | awk -F '.' '{ print $2"."$3 }'`
+DOMAIN=`docker inspect --format '{{ .Config.Env }}' turn | awk '{print $2}' | awk -F '=' '{print $2}' | sed 's/^[^.]*.//'`
 SEND_TO=$1
 SEND_SUBJECT=$2
 SEND_BODY=$3
