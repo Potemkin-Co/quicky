@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# cron entry might look like that:
+# 3 4 * * * /root/reboot_if_required.sh
+#
 set -e
 
 NOTIFY_MAIL="YOUR_EMAIL"
