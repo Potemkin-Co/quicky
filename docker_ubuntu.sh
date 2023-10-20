@@ -1,22 +1,25 @@
 #!/bin/bash
-#Script to install Docker on Ubuntu as per https://docs.docker.com/engine/install/ubuntu/
-#One-liner: wget -O - https://raw.githubusercontent.com/Potemkin-Co/quicky/main/docker_ubuntu.sh | bash
+#https://docs.docker.com/engine/install/ubuntu/ scripted
 
-sudo apt-get remove docker docker-engine docker.io containerd runc #this can fail
+sudo apt-get remove docker docker-engine docker.io containerd runc
 
-set -e #and the rest shall not
+set -e #abort on any fail
 
 sudo apt-get update
-sudo apt-get --assume-yes install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+sudo apt-get install ca-certificates curl gnupg
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo apt-key fingerprint 0EBFCD88 # verify docker signature
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable" # as per Install Docker Engine on Ubuntu | Docker Documentation
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  
 sudo apt-get update
-sudo apt-get --assume-yes install docker-ce docker-ce-cli containerd.io
+sudo apt-get --assume-yes install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "Trying hello world from Docker..."
-sudo docker run hello-world # check if there is Hello from Docker
+sudo docker run hello-world # shall be Ok
